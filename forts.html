@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forts Maps</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+		h2 {
+		    font-size: 1.0em;
+		}
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .frame {
+            width: 240px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .frame img {
+            max-width: 100%;
+            height: 150px;
+            cursor: pointer;
+        }
+        .tags {
+            margin-top: 10px;
+        }
+        .tag {
+            display: inline-block;
+            padding: 5px;
+            background-color: #eee;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .filters {
+            margin-bottom: 20px;
+        }
+        .filter {
+            display: inline-block;
+            padding: 5px;
+            background-color: #ccc;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .filter.active {
+            background-color: #666;
+            color: white;
+        }
+        /* Стили для увеличенного изображения */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .overlay img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Forts Maps</h1>
+
+<div class="filters">
+    <span class="filter" data-filter="AI">AI</span>
+    <span class="filter" data-filter="1v1">1v1</span>
+    <span class="filter" data-filter="2v2">2v2</span>
+    <span class="filter" data-filter="3v3">3v3</span>
+    <span class="filter" data-filter="4v4">4v4</span>
+</div>
+
+<div class="container">
+    <!-- Пример фрейма -->
+    <div class="frame" data-tags="AI 1v1">
+        <h2>[OF]1v1 WarShip (Co-op)</h2>
+        <img src="img\[OF]1v1 WarShip (Co-op).jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">AI</span>
+            <span class="tag">1v1</span>
+        </div>
+    </div>
+
+    <div class="frame" data-tags="2v2">
+        <h2>2v2 Frost Islands</h2>
+        <img src="img\2v2 Frost Islands.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="2v2">
+        <h2>2v2 Hills</h2>
+        <img src="img\2v2 Hills.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 2v2">
+        <h2>2v2 Humans VS Ai 6</h2>
+        <img src="img\2v2 Humans VS Ai 6.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 2v2">
+        <h2>2v2 Humans VS Ai 11</h2>
+        <img src="img\2v2 Humans VS Ai 11.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 2v2">
+        <h2>2v2 Ledge Grab</h2>
+        <img src="img\2v2 Ledge Grab.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="2v2">
+        <h2>2v2 tank plane</h2>
+        <img src="img\2v2 tank plane.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="2v2">
+        <h2>2v2 Twins Entity</h2>
+        <img src="img\2v2 Twins Entity.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 2v2">
+        <h2>2v2</h2>
+        <img src="img\2v2.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="2v2">
+        <h2>2vs2 Stalagmites</h2>
+        <img src="img\2vs2 Stalagmites.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 2v2">
+        <h2>2vs2</h2>
+        <img src="img\2vs2.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="3v3">
+        <h2>3v3 Dwarven Wars</h2>
+        <img src="img\3v3 Dwarven Wars.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="3v3">
+        <h2>3v3 Romance</h2>
+        <img src="img\3v3 Romance.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="3v3">
+        <h2>3v3 with Spy</h2>
+        <img src="img\3v3 with Spy.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 3v3">
+        <h2>3vs3 Dark slope</h2>
+        <img src="img\3vs3 Dark slope.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="3v3">
+        <h2>3vs3 Green slope</h2>
+        <img src="img\3vs3 Green slope.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 3v3">
+        <h2>3x3 MP</h2>
+        <img src="img\3x3 MP.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 2v2">
+        <h2>AI Tournament 7 NO HS</h2>
+        <img src="img\AI Tournament 7 NO HS.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 1v1">
+        <h2>Air battles</h2>
+        <img src="img\Air battles.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">1v1</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 1v1">
+        <h2>Beached Battleships</h2>
+        <img src="img\Beached Battleships.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">1v1</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="2v2">
+        <h2>Better2v2</h2>
+        <img src="img\Better2v2.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 4v4">
+        <h2>Big Canyon 4v4</h2>
+        <img src="img\Big Canyon 4v4.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">4v4</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 4v4">
+        <h2>Bigun 4v4</h2>
+        <img src="img\Bigun 4v4.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">4v4</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 1v1">
+        <h2>BunkerVs</h2>
+        <img src="img\BunkerVs.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">1v1</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="3v3">
+        <h2>Canyon Cove 3v3</h2>
+        <img src="img\Canyon Cove 3v3.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 2v2">
+        <h2>Cave Map 2v2</h2>
+        <img src="img\Cave Map 2v2.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="2v2">
+        <h2>Caves 2vs2</h2>
+        <img src="img\Caves 2vs2.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="3v3">
+        <h2>Close Quarters 3v3</h2>
+        <img src="img\Close Quarters 3v3.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="2v2">
+        <h2>Concrete Heights 2v2</h2>
+        <img src="img\Concrete Heights 2v2.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="3v3">
+        <h2>Crab Battle 3v3</h2>
+        <img src="img\Crab Battle 3v3.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 3v3">
+        <h2>Dead Fields</h2>
+        <img src="img\Dead Fields.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="2v2">
+        <h2>Desert War</h2>
+        <img src="img\Desert War.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="3v3">
+        <h2>fart v2</h2>
+        <img src="img\fart v2.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="4v4">
+        <h2>FF Aircraft Carriers 4v4 Co-Op</h2>
+        <img src="img\FF Aircraft Carriers 4v4 Co-Op.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">4v4</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="3v3">
+        <h2>first map</h2>
+        <img src="img\first map.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 2v2">
+        <h2>FMMC5 - MandalorianJedi</h2>
+        <img src="img\FMMC5 - MandalorianJedi.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="2v2">
+        <h2>FOR FLY 2vs2</h2>
+        <img src="img\FOR FLY 2vs2.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="3v3">
+        <h2>Forest 3v3</h2>
+        <img src="img\Forest 3v3.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 3v3">
+        <h2>FRONT_3V3</h2>
+        <img src="img\FRONT_3V3.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 2v2">
+        <h2>Hazy Battleships</h2>
+        <img src="img\Hazy Battleships.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 3v3">
+        <h2>hellmouth 3v3 MS</h2>
+        <img src="img\hellmouth 3v3 MS.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="2v2">
+        <h2>High Islands</h2>
+        <img src="img\High Islands.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="2v2">
+        <h2>Hillocks 2v2</h2>
+        <img src="img\Hillocks 2v2.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 2v2">
+        <h2>Iargo Springs 3 2x2</h2>
+        <img src="img\Iargo Springs 3 2x2.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 4v4">
+        <h2>Improved Dueling Vipers 4v4</h2>
+        <img src="img\Improved Dueling Vipers 4v4.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">4v4</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="3v3">
+        <h2>Japan 3 vs 3</h2>
+        <img src="img\Japan 3 vs 3.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="3v3">
+        <h2>Last Nuke 3vs3</h2>
+        <img src="img\Last Nuke 3vs3.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="3v3">
+        <h2>Map 3 VS 3</h2>
+        <img src="img\Map 3 VS 3.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 3v3">
+        <h2>Mars One 3v3</h2>
+        <img src="img\Mars One 3v3.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 2v2">
+        <h2>Mars Stalactites 2v2</h2>
+        <img src="img\Mars Stalactites 2v2.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 3v3">
+        <h2>Metropolis</h2>
+        <img src="img\Metropolis.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="2v2">
+        <h2>new year hill fortifled 2v2</h2>
+        <img src="img\new year hill fortifled 2v2.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 3v3">
+        <h2>Ok Corral</h2>
+        <img src="img\Ok Corral.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 3v3">
+        <h2>Over Blizzard 3v3 + AI</h2>
+        <img src="img\Over Blizzard 3v3 + AI.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="3v3">
+        <h2>Pillar Teeth 3v3</h2>
+        <img src="img\Pillar Teeth 3v3.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 2v2">
+        <h2>small Valley 2v2</h2>
+        <img src="img\small Valley 2v2.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="2v2">
+        <h2>Space MapYn1</h2>
+        <img src="img\Space MapYn1.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 2v2">
+        <h2>Spelunk</h2>
+        <img src="img\Spelunk.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="3v3">
+        <h2>The Battle of Ryloth (prt 1)</h2>
+        <img src="img\The Battle of Ryloth (prt 1).jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 2v2">
+        <h2>The Dragon's Wrath</h2>
+        <img src="img\The Dragon's Wrath.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 1v1">
+        <h2>Titanic untold tale</h2>
+        <img src="img\Titanic untold tale.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">1v1</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="2v2">
+        <h2>Tons of Cannons AI</h2>
+        <img src="img\Tons of Cannons AI.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 4v4">
+        <h2>Vanilla (Fever Dream) 4v4</h2>
+        <img src="img\Vanilla (Fever Dream) 4v4.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">4v4</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 4v4">
+        <h2>Vanilla Hell Version</h2>
+        <img src="img\Vanilla Hell Version.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">4v4</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 2v2">
+        <h2>Walkers 2v2</h2>
+        <img src="img\Walkers 2v2.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">2v2</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 3v3">
+        <h2>Wall 2 (3v3)</h2>
+        <img src="img\Wall 2 (3v3).jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 1v1">
+        <h2>WW2 Battleships</h2>
+        <img src="img\WW2 Battleships.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">1v1</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 4v4">
+        <h2>Ziggurat 4v4 MS</h2>
+        <img src="img\Ziggurat 4v4 MS.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">4v4</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="1v1">
+        <h2>заебали</h2>
+        <img src="img\заебали.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">1v1</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 3v3">
+        <h2>Ископаемая Граница</h2>
+        <img src="img\Ископаемая Граница.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="3v3">
+        <h2>Мини-Муравейник</h2>
+        <img src="img\Мини-Муравейник.jpg" alt="alt">
+        <div class="tags">
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 1v1">
+        <h2>Пустота</h2>
+        <img src="img\Пустота.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">1v1</span>
+        </div>
+    </div>
+	
+	<div class="frame" data-tags="AI 3v3">
+        <h2>Сталактиты 3 на 3</h2>
+        <img src="img\Сталактиты 3 на 3.jpg" alt="alt">
+        <div class="tags">
+			<span class="tag">AI</span>
+            <span class="tag">3v3</span>
+        </div>
+    </div>
+
+    <!-- Дополнительные фреймы можно добавить здесь -->
+</div>
+<div class="overlay" id="overlay">
+    <img src="" alt="Full Image" id="overlayImg">
+</div>
+<script>
+    // Функция для добавления пользовательской метки в фильтр
+    function addCustomTagToFilter(tag) {
+        if (!$(`.filter[data-filter="${tag}"]`).length) {
+            $('.filters').append(`<span class="filter" data-filter="${tag}">${tag}</span>`);
+        }
+    }
+
+    // Обработчик клика на фильтр
+    document.querySelectorAll('.filter').forEach(filter => {
+        filter.addEventListener('click', function() {
+            this.classList.toggle('active');
+            applyFilters();
+        });
+    });
+
+    // Применение фильтров
+    function applyFilters() {
+        let activeFilters = Array.from(document.querySelectorAll('.filter.active')).map(f => f.dataset.filter);
+
+        document.querySelectorAll('.frame').forEach(frame => {
+            let tags = frame.dataset.tags.split(' ');
+            let isMatch = activeFilters.every(tag => tags.includes(tag));
+            frame.style.display = isMatch ? '' : 'none';
+        });
+    }
+	// Получаем элементы для работы с увеличением
+    const overlay = document.getElementById('overlay');
+    const overlayImg = document.getElementById('overlayImg');
+
+    // Функция для отображения увеличенного изображения
+    document.querySelectorAll('.frame img').forEach(img => {
+        img.addEventListener('click', () => {
+            overlay.style.display = 'flex';
+            overlayImg.src = img.src;
+        });
+    });
+
+    // Закрытие увеличенного изображения при клике на overlay
+    overlay.addEventListener('click', () => {
+        overlay.style.display = 'none';
+        overlayImg.src = ''; // Очищаем src, чтобы избежать повторной загрузки
+    });
+</script>
+
+</body>
+</html>
