@@ -3,81 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anonymous Chat</title>
+    <title>P2P Chat</title>
     <style>
         body { font-family: Arial, sans-serif; }
-        #chat { border: 1px solid #ddd; padding: 10px; height: 300px; overflow-y: scroll; }
-        #message { width: 100%; padding: 8px; margin-top: 10px; }
-        .msg { margin-bottom: 10px; padding: 5px; border-radius: 5px; background: #f1f1f1; }
+        #messages { max-height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; }
+        #input { width: 80%; }
     </style>
 </head>
 <body>
-
-<h2>Anonymous Chat</h2>
-<div id="chat"></div>
-<input type="text" id="message" placeholder="Type your message here...">
-<button onclick="sendMessage()">Send</button>
-
-<script>
-    // Функция для отображения сообщений из LocalStorage
-    function displayMessages() {
-        const chatDiv = document.getElementById('chat');
-        chatDiv.innerHTML = '';
-
-        // Получаем сообщения из LocalStorage
-        const messages = JSON.parse(localStorage.getItem('chatMessages')) || [];
-        
-        // Выводим каждое сообщение
-        messages.forEach(msg => {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'msg';
-            messageDiv.textContent = msg;
-            chatDiv.appendChild(messageDiv);
-        });
-
-        // Прокручиваем чат вниз
-        chatDiv.scrollTop = chatDiv.scrollHeight;
-    }
-
-    // Функция для отправки сообщения
-    function sendMessage() {
-        const messageInput = document.getElementById('message');
-        const messageText = messageInput.value.trim();
-
-        if (messageText) {
-            // Получаем текущие сообщения и добавляем новое
-            const messages = JSON.parse(localStorage.getItem('chatMessages')) || [];
-            messages.push(messageText);
-
-            // Сохраняем обновленный список сообщений
-            localStorage.setItem('chatMessages', JSON.stringify(messages));
-
-            // Очищаем ввод и обновляем чат
-            messageInput.value = '';
-            displayMessages();
-        }
-    }
-
-    // Функция для проверки наличия новых сообщений
-    function checkForNewMessages() {
-        const lastMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
-        
-        // Сравниваем с предыдущими сообщениями
-        if (lastMessages.length !== displayMessages.previousMessageCount) {
-            displayMessages.previousMessageCount = lastMessages.length; // Обновляем количество сообщений
-            displayMessages(); // Обновляем отображение
-        }
-    }
-
-    // Инициализация счетчика для отслеживания количества сообщений
-    displayMessages.previousMessageCount = 0;
-
-    // Загружаем сообщения при открытии страницы
-    window.onload = () => {
-        displayMessages();
-        setInterval(checkForNewMessages, 2000); // Проверяем наличие новых сообщений каждые 2 секунды
-    };
-</script>
-
+    <h1>P2P Chat</h1>
+    <div id="messages"></div>
+    <input id="input" type="text" placeholder="Type your message..." />
+    <button id="send">Send</button>
+    <script src="script.js"></script>
 </body>
 </html>
