@@ -86,7 +86,7 @@
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
-    const socket = io();
+    const socket = io('d1.qwer-host.xyz:5555');
 
     // Слушаем новые сообщения от сервера и отображаем их
     socket.on('chat message', function(msg) {
