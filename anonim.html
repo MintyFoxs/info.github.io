@@ -3,53 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Firebase Chat</title>
+    <title>Anonymous Chat</title>
     <style>
-        .chat-container { width: 300px; margin: auto; }
-        .messages { max-height: 300px; overflow-y: scroll; border: 1px solid #ddd; padding: 10px; }
+        body { font-family: Arial, sans-serif; }
+        #chat { border: 1px solid #ddd; padding: 10px; height: 300px; overflow-y: scroll; }
+        #message { width: 100%; padding: 8px; margin-top: 10px; }
+        .msg { margin-bottom: 10px; padding: 5px; border-radius: 5px; background: #f1f1f1; }
     </style>
-    <!-- Подключите Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
 </head>
 <body>
-    <div class="chat-container">
-        <div class="messages" id="messages"></div>
-        <input type="text" id="messageInput" placeholder="Type a message...">
-        <button onclick="sendMessage()">Send</button>
-    </div>
 
-    <script>
-        // Конфигурация Firebase
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            databaseURL: "YOUR_DATABASE_URL",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
+<h2>Anonymous Chat</h2>
+<div id="chat"></div>
+<input type="text" id="message" placeholder="Type your message here...">
+<button onclick="sendMessage()">Send</button>
 
-        // Получение сообщений из базы данных
-        database.ref("messages").on("child_added", function(snapshot) {
-            const message = snapshot.val();
-            const messageElement = document.createElement("div");
-            messageElement.textContent = message;
-            document.getElementById("messages").appendChild(messageElement);
+<script>
+    // Функция для отображения сообщений из LocalStorage
+    function displayMessages() {
+        const chatDiv = document.getElementById('chat');
+        chatDiv.innerHTML = '';
+
+        // Получаем сообщения из LocalStorage
+        const messages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+        
+        // Выводим каждое сообщение
+        messages.forEach(msg => {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'msg';
+            messageDiv.textContent = msg;
+            chatDiv.appendChild(messageDiv);
         });
 
-        // Отправка сообщений
-        function sendMessage() {
-            const messageInput = document.getElementById("messageInput");
-            const messageText = messageInput.value;
-            if (messageText) {
-                database.ref("messages").push(messageText);
-                messageInput.value = "";
-            }
+        // Прокручиваем чат вниз
+        chatDiv.scrollTop = chatDiv.scrollHeight;
+    }
+
+    // Функция для отправки сообщения
+    function sendMessage() {
+        const messageInput = document.getElementById('message');
+        const messageText = messageInput.value.trim();
+
+        if (messageText) {
+            // Получаем текущие сообщения и добавляем новое
+            const messages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+            messages.push(messageText);
+
+            // Сохраняем обновленный список сообщений
+            localStorage.setItem('chatMessages', JSON.stringify(messages));
+
+            // Очищаем ввод и обновляем чат
+            messageInput.value = '';
+            displayMessages();
         }
-    </script>
+    }
+
+    // Функция для проверки наличия новых сообщений
+    function checkForNewMessages() {
+        const lastMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+        
+        // Сравниваем с предыдущими сообщениями
+        if (lastMessages.length !== displayMessages.previousMessageCount) {
+            displayMessages.previousMessageCount = lastMessages.length; // Обновляем количество сообщений
+            displayMessages(); // Обновляем отображение
+        }
+    }
+
+    // Инициализация счетчика для отслеживания количества сообщений
+    displayMessages.previousMessageCount = 0;
+
+    // Загружаем сообщения при открытии страницы
+    window.onload = () => {
+        displayMessages();
+        setInterval(checkForNewMessages, 2000); // Проверяем наличие новых сообщений каждые 2 секунды
+    };
+</script>
+
 </body>
 </html>
