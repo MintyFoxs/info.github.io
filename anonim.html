@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Anonymous Chat</title>
   <style>
+    /* Оформление чата */
     body {
       display: flex;
       justify-content: center;
@@ -75,7 +76,6 @@
   </style>
 </head>
 <body>
-
   <div class="chat-container">
     <div class="messages" id="messages"></div>
     <div class="input-container">
@@ -84,36 +84,30 @@
     </div>
   </div>
 
+  <script src="/socket.io/socket.io.js"></script>
   <script>
-    // Загружаем сообщения из локального хранилища при загрузке страницы
-    const messagesContainer = document.getElementById('messages');
-    const messages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+    const socket = io();
 
-    function displayMessages() {
-      messagesContainer.innerHTML = '';
-      messages.forEach((msg, index) => {
-        const messageElement = document.createElement('div');
-        messageElement.classList.add('message', 'user');
-        messageElement.textContent = msg;
-        messagesContainer.appendChild(messageElement);
-      });
+    // Слушаем новые сообщения от сервера и отображаем их
+    socket.on('chat message', function(msg) {
+      const messagesContainer = document.getElementById('messages');
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('message', 'user');
+      messageElement.textContent = msg;
+      messagesContainer.appendChild(messageElement);
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
+    });
 
+    // Отправляем сообщение на сервер
     function sendMessage() {
       const messageInput = document.getElementById('messageInput');
       const messageText = messageInput.value.trim();
 
       if (messageText) {
-        messages.push(messageText);
-        localStorage.setItem('chatMessages', JSON.stringify(messages));
-        displayMessages();
+        socket.emit('chat message', messageText);
         messageInput.value = '';
       }
     }
-
-    // Инициализация сообщений при загрузке
-    displayMessages();
   </script>
 </body>
 </html>
