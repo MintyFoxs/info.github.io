@@ -11,7 +11,13 @@
     - favicon
   -->
   <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
-
+  <style>
+	  #chat-frame {
+            border: none;
+            width: 100%; /* Ширина 100% для адаптивности */
+            height: 500px; /* Высота, которую вы хотите задать */
+        }
+  </style>
   <!--
     - custom css link
   -->
@@ -178,7 +184,7 @@
           </li>
 		  
           <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Maps</button>
+            <button class="navbar-link" data-nav-link>Chat</button>
           </li>
 
           <li class="navbar-item">
@@ -670,17 +676,12 @@
         - #CONTACT
       -->
 
-      <article class="maps" data-page="maps">
+      <article class="chat" data-page="chat">
 
         <header>
-          <h2 class="h2 article-title">Maps</h2>
+          <h2 class="h2 article-title">Chat</h2>
         </header>
 
-        <section class="mapbox" data-mapbox>
-          <figure>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d706.7904224395674!2d30.361285722874303!3d59.93039648714464!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sru!4v1729800329190!5m2!1sru!2sru" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </figure>
-        </section>
 	<section class="mapbox" data-mapbox>
 	  <figure>
 	    <iframe id="chat-frame" src="https://pgws.ru/chat/chat.php"></iframe>
