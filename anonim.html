@@ -88,7 +88,13 @@
       messagesContainer.appendChild(messageElement);
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
     });
+    socket.on('connect', () => {
+  console.log('Connected to the server');
+});
 
+socket.on('connect_error', (error) => {
+  console.error('Connection error:', error);
+});
     function sendMessage() {
       const messageInput = document.getElementById('messageInput');
       const messageText = messageInput.value.trim();
